@@ -1,0 +1,37 @@
+{% set CID = CLIENT_ID %}
+
+{% if 'R1' in ROUTER_ID %}
+    {% set LOCAL_RID = 1 %}
+    {% set REMOTE_RID = 2 %}
+    {% if CLIENT_ID | int % 2 == 0 %}
+        {% set PRIORITY = 100 %}
+    {% else %}
+        {% set PRIORITY = 200 %}
+    {% endif %}
+{% elif 'R2' in ROUTER_ID %}
+    {% set LOCAL_RID = 2 %}
+    {% set REMOTE_RID = 1 %}
+    {% if CLIENT_ID | int % 2 == 0 %}
+        {% set PRIORITY = 200 %}
+    {% else %}
+        {% set PRIORITY = 100 %}
+    {% endif %}
+{% endif %}
+
+[{"op": "set", "path": ["vrf", "name", "VL{{CID}}", "table", "1{{CID}}"]},
+{"op": "set", "path": ["interfaces", "ethernet", "eth0", "vif", "{{CID}}", "address", "172.16.{{CID}}.0/31"]},
+{"op": "set", "path": ["interfaces", "ethernet", "eth0", "vif", "{{CID}}", "vrf", "VL{{CID}}"]},
+{"op": "set", "path": ["protocols", "vrf", "VL{{CID}}", "static", "route", "0.0.0.0/0", "next-hop", "172.16.{{CID}}.1"]},
+{% if PRIORITY == 200 %}
+{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "health-check", "failure-count", "3"]},
+{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "health-check", "interval", "2"]},
+{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "health-check", "script", "/config/we-are-isolated.sh"]},
+{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "transition-script", "backup", "/config/vrrp-goes-backup.sh"]},
+{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "transition-script", "master", "/config/vrrp-goes-master.sh"]},
+{% endif %}
+{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "hello-source-address", "10.0.{{CID}}.{{LOCAL_RID}}"]},
+{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "interface", "eth2"]},
+{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "peer-address", "10.0.{{CID}}.{{REMOTE_RID}}"]},
+{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "priority", {{PRIORITY}}"]},
+{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "virtual-address", "10.0.{{CID}}.254/24"]},
+{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "vrid", "{{CID}}"]}]

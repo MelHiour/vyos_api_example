@@ -1,0 +1,8 @@
+mappings:
+    R1: new_client_rtr.j2
+    R2: new_client_rtr.j2
+    F1: new_client_fw.j2
+    F2: new_client_fw.j2
+data:
+    client_id: 13
+    internet: true
