@@ -1,2 +1,2 @@
 # This file should be in .gitignore
-VYOS_API_KEY = "SECRET_KEY"
+API_KEY = "SECRET_ONE"

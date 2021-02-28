@@ -1,8 +1,20 @@
-mappings:
-    R1: new_client_rtr.j2
-    R2: new_client_rtr.j2
-    F1: new_client_fw.j2
-    F2: new_client_fw.j2
-data:
-    client_id: 13
-    internet: true
+---
+R1: 
+    template: new_client_rtr.j2
+    data: 
+        ROUTER_ID: R1
+        CLIENT_ID: 13
+R2:
+    template: new_client_rtr.j2
+    data:
+        ROUTER_ID: R2
+        CLIENT_ID: 13   
+F1: 
+    template: new_client_fw.j2
+    data:
+        CLIENT_ID: 13
+        INTERNET: True
+F2:
+    template: new_client_fw.j2
+    data:
+        CLIENT_ID: 13

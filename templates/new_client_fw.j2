@@ -1,20 +1,16 @@
-% set CID = CLIENT_ID %}
-
-set interfaces ethernet eth1 vif {{CID}} address '172.16.{{CID}}.1/31'
-set protocols static route 10.0.{{CID}}.0/24 next-hop 172.16.{{CID}}.0
-
-set zone-policy zone VL{{CID}} default-action 'drop'
-set zone-policy zone VL{{CID}} description 'VL{{CID}}'
-set zone-policy zone VL{{CID}} interface 'eth1.{{CID}}'
-
-{% if INTERNET is defined %}
-set firewall name WORLD-TO-VL{{CID}} default-action 'drop'
-set firewall name WORLD-TO-VL{{CID}} rule 1 action 'accept'
-set firewall name WORLD-TO-VL{{CID}} rule 1 state established 'enable'
-set firewall name WORLD-TO-VL{{CID}} rule 1 state related 'enable'
-set firewall name WORLD-TO-VL{{CID}} rule 2 action 'drop'
-set firewall name WORLD-TO-VL{{CID}} rule 2 state invalid 'enable'
-
-set zone-policy zone VL{{CID}} from WORLD firewall name 'WORLD-TO-VL{{CID}}'
-set zone-policy zone WORLD from VL{{CID}} firewall name 'TO-WORLD'
-{% endif %}
+{%- set CID = CLIENT_ID -%}
+[{"op": "set", "path": ["interfaces", "ethernet", "eth1", "vif", "{{CID}}", "address", "172.16.{{CID}}.1/31"]},
+{"op": "set", "path": ["protocols", "static", "route", "10.0.{{CID}}.0/24", "next-hop", "172.16.{{CID}}.0"]},
+{%- if INTERNET == True -%}
+{"op": "set", "path": ["firewall", "name", "WORLD-TO-VL{{CID}}","default-action", "drop"]},
+{"op": "set", "path": ["firewall", "name", "WORLD-TO-VL{{CID}}","rule", "1", "action", "accept"]},
+{"op": "set", "path": ["firewall", "name", "WORLD-TO-VL{{CID}}","rule", "1", "state", "established", "enable"]},
+{"op": "set", "path": ["firewall", "name", "WORLD-TO-VL{{CID}}","rule", "1", "state", "related", "enable"]},
+{"op": "set", "path": ["firewall", "name", "WORLD-TO-VL{{CID}}","rule", "2", "action", "drop"]},
+{"op": "set", "path": ["firewall", "name", "WORLD-TO-VL{{CID}}","rule", "2", "state", "invalid", "enable"]},
+{"op": "set", "path": ["zone-policy", "zone", "VL{{CID}}", "from", "WORLD", "firewall", "name", "WORLD-TO-VL{{CID}}"]},
+{"op": "set", "path": ["zone-policy", "zone", "WORLD", "from", "VL{{CID}}", "firewall", "name", "TO-WORLD"]},
+{%- endif %}
+{"op": "set", "path": ["zone-policy", "zone", "VL{{CID}}", "default-action", "drop"]},
+{"op": "set", "path": ["zone-policy", "zone", "VL{{CID}}", "description", "VL{{CID}}"]},
+{"op": "set", "path": ["zone-policy", "zone", "VL{{CID}}", "interface", "eth1.{{CID}}"]}]
