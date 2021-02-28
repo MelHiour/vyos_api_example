@@ -16,7 +16,6 @@
         {% set PRIORITY = 100 -%}
     {% endif -%}
 {% endif -%}
-
 [{"op": "set", "path": ["vrf", "name", "VL{{CID}}", "table", "1{{CID}}"]},
 {"op": "set", "path": ["interfaces", "ethernet", "eth0", "vif", "{{CID}}", "address", "172.16.{{CID}}.0/31"]},
 {"op": "set", "path": ["interfaces", "ethernet", "eth0", "vif", "{{CID}}", "vrf", "VL{{CID}}"]},
@@ -31,6 +30,6 @@
 {"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "hello-source-address", "10.0.{{CID}}.{{LOCAL_RID}}"]},
 {"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "interface", "eth2"]},
 {"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "peer-address", "10.0.{{CID}}.{{REMOTE_RID}}"]},
-{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "priority", {{PRIORITY}}"]},
+{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "priority", "{{PRIORITY}}"]},
 {"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "virtual-address", "10.0.{{CID}}.254/24"]},
 {"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "vrid", "{{CID}}"]}]
