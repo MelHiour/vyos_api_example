@@ -21,8 +21,11 @@ def main(inventory_file, deployment_file, api_key):
         print('Config for "{}" generated.'.format(device))
 
         prepared_config = helpers.prep_config(generated_config, key)
+        print('Config prepared.')
+        
         print('Pushing config to "{}"'.format(device))
         r = helpers.post_config(inventory[device]['address'], prepared_config)
+        
         print('Returned result is "{}"'.format(r.text))
 
 if __name__ == '__main__':
