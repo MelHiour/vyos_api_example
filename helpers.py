@@ -1,9 +1,9 @@
 import yaml 
-import logging
 import requests
 import json
 import urllib3
 from jinja2 import Template
+
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def parse_yaml(file):   
@@ -39,4 +39,3 @@ def post_config(target, to_push):
     url = 'https://' + target + '/configure'
     r = requests.post(url, files=to_push, verify=False)
     return(r)
-
