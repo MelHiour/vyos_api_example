@@ -19,6 +19,9 @@
 [{"op": "set", "path": ["vrf", "name", "VL{{CID}}", "table", "1{{CID}}"]},
 {"op": "set", "path": ["interfaces", "ethernet", "eth0", "vif", "{{CID}}", "address", "172.16.{{CID}}.0/31"]},
 {"op": "set", "path": ["interfaces", "ethernet", "eth0", "vif", "{{CID}}", "vrf", "VL{{CID}}"]},
+{"op": "set", "path": ["interfaces", "ethernet", "{{CLIENT_INT}}", "address", "10.0.{{CID}}.{{LOCAL_RID}}/24"]},
+{"op": "set", "path": ["interfaces", "ethernet", "{{CLIENT_INT}}", "description", "VLAN{{CID}}"]},
+{"op": "set", "path": ["interfaces", "ethernet", "{{CLIENT_INT}}", "vrf", "VL{{CID}}"]},
 {"op": "set", "path": ["protocols", "vrf", "VL{{CID}}", "static", "route", "0.0.0.0/0", "next-hop", "172.16.{{CID}}.1"]},
 {% if PRIORITY == 200 -%}
 {"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "health-check", "failure-count", "3"]},

@@ -4,11 +4,13 @@ R1:
     data: 
         ROUTER_ID: R1
         CLIENT_ID: 13
+        CLIENT_INT: eth5
 R2:
     template: new_client_rtr.j2
     data:
         ROUTER_ID: R2
-        CLIENT_ID: 13   
+        CLIENT_ID: 13
+        CLIENT_INT: eth5 
 F1: 
     template: new_client_fw.j2
     data:
@@ -18,3 +20,4 @@ F2:
     template: new_client_fw.j2
     data:
         CLIENT_ID: 13
+        INTERNET: True
