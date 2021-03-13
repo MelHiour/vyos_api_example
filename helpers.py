@@ -39,3 +39,13 @@ def post_config(target, to_push):
     url = 'https://' + target + '/configure'
     r = requests.post(url, files=to_push, verify=False)
     return(r)
+
+def save_config(target, api_key):
+   '''
+   Just saving cofig you know...
+   '''
+   url = 'https://' + target + '/config-file'
+   data = '{"op": "save"}'
+   to_push = prep_config(data, api_key)
+   r = requests.post(url, files=to_push, verify=False)
+   return(r)

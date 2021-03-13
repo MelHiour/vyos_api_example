@@ -18,15 +18,19 @@ def main(inventory_file, deployment_file, api_key):
 
     for device, details in deployment.items():
         generated_config = helpers.generate_cfg_from_template("templates/" + details['template'], details['data'])
-        print('Config for "{}" generated.'.format(device))
+        print('\tConfig for "{}" generated.'.format(device))
 
         prepared_config = helpers.prep_config(generated_config, key)
-        print('Config prepared.')
+        print('\tConfig prepared.')
         
-        print('Pushing config to "{}"'.format(device))
+        print('\tPushing config to "{}"'.format(device))
         r = helpers.post_config(inventory[device]['address'], prepared_config)
         
-        print('Returned result is "{}"'.format(r.text))
+        print('\tReturned result is "{}"'.format(r.text))
+        
+        print('\tSaving configuration...')
+        r = helpers.save_config(inventory[device]['address'], key)
+        print('\tReturned result is "{}"'.format(r.text))
 
 if __name__ == '__main__':
     main()
