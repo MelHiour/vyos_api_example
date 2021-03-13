@@ -7,7 +7,6 @@ from jinja2 import Template
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def parse_yaml(file):   
-    '''
     with open(file) as file:
         result = yaml.load(file, Loader=yaml.FullLoader)
     return(result)
