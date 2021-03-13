@@ -31,7 +31,7 @@
 {"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "transition-script", "master", "/config/vrrp-goes-master.sh"]},
 {% endif -%}
 {"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "hello-source-address", "10.0.{{CID}}.{{LOCAL_RID}}"]},
-{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "interface", "eth2"]},
+{"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "interface", "{{CLIENT_INT}}"]},
 {"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "peer-address", "10.0.{{CID}}.{{REMOTE_RID}}"]},
 {"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "priority", "{{PRIORITY}}"]},
 {"op": "set", "path": ["high-availability", "vrrp", "group", "VLAN{{CID}}", "virtual-address", "10.0.{{CID}}.254/24"]},

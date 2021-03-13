@@ -18,7 +18,7 @@ def main(inventory_file, deployment_file, api_key):
 
     for device, details in deployment.items():
         generated_config = helpers.generate_cfg_from_template("templates/" + details['template'], details['data'])
-        print('\tConfig for "{}" generated.'.format(device))
+        print('\n\tConfig for "{}" generated.'.format(device))
 
         prepared_config = helpers.prep_config(generated_config, key)
         print('\tConfig prepared.')
